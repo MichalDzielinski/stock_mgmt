@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .forms import StockCreateForm
 from .models import Stock
 
@@ -18,6 +18,8 @@ def add_items(request):
     form = StockCreateForm(request.POST or None)
     if form.is_valid():
         form.save()
+        
+        return redirect('list')
     
     context = {'form': form, 'title': 'Add Item'}
     return render(request, 'add_items.html', context)
