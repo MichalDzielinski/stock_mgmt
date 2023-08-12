@@ -88,5 +88,8 @@ USE_TZ = True
 
 #region STATIC FILE, MEDIA & AWS SETTINGS
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [BASE_DIR/'static/']
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #endregion STATIC FILE, MEDIA & AWS SETTINGS
+
