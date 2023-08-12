@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'storages',
 
     #custom apps
+    'stock',
 
 ]
 
