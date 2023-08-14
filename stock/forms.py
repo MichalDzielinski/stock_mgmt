@@ -20,6 +20,8 @@ class StockCreateForm(forms.ModelForm):
 
 
 class StockSearchForm(forms.ModelForm):
+    export_to_CSV = forms.BooleanField(required=False, label='Export to CSV')
+    
     class Meta:
         model = Stock
         fields = ['category', 'item_name']
