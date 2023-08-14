@@ -1,7 +1,7 @@
 import csv
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
-from .forms import StockCreateForm, StockSearchForm, StockUpdateForm
+from .forms import StockCreateForm, StockSearchForm, StockUpdateForm, IssueForm, ReceiveForm
 from .models import Stock
 from django.contrib import messages
 
@@ -73,6 +73,52 @@ def stock_detail(request, pk):
           'qs': qs
      }
      return render(request, 'stock_detail.html', context)
+
+def issue_items(request, pk):
+    qs = Stock.objects.get(id=pk)
+    form = IssueForm(request.POST or None, instance=qs)
+    if form.is_valid():
+         instance = form.save(commit=False)
+         instance.quantity -= instance.issue_quantity
+         instance.issue_by = str(request.user)
+         messages.success(request, 'Issued SUCCESSFULLY. ' + str(instance.quantity)+' '+str(instance.item_name)+'s now left in store')
+         instance.save()
+
+         return redirect('/stock_detail/'+str(instance.id))
+    context = {
+         "title": 'Issue '+str(qs.item_name),
+         'qs': qs,
+         'form': form,
+         'username': "Issue by: "+str(request.user)
+    }
+    return render(request, 'add_items.html', context)
+
+def receive_items(request, pk):
+    qs = Stock.objects.get(id=pk)
+    form = ReceiveForm(request.POST or None, instance=qs)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.quantity += instance.receive_quantity
+        instance.save()
+        messages.success(request, "Received SUCCESSFULLY. "+str(instance.quantity)+' '+str(instance.item_name)+'s now in Store')
+
+        return redirect('/stock_detail/'+str(instance.id))
+    
+    context = {
+         'title': "Receive "+str(qs.item_name),
+         'instance': qs,
+         'form': form,
+         'username': 'Receive by: '+str(request.user)
+    }
+    return render(request, 'add_items.html', context)
+
+
+
+
+
+
+
+
 
 
 

@@ -10,5 +10,9 @@ urlpatterns = [
     path('delete_item/<int:pk>/', views.delete_item, name='delete_item'),
     path('stock_detail/<str:pk>/', views.stock_detail, name='stock_detail'),
 
+
+    path('issue_items/<str:pk>/', views.issue_items, name='issue_items'),
+    path('receive_items/<str:pk>/', views.receive_items, name='receive_items'),
+
     path('admin/', admin.site.urls),
 ]
