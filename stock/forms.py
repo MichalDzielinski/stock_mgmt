@@ -24,7 +24,11 @@ class StockSearchForm(forms.ModelForm):
         model = Stock
         fields = ['category', 'item_name']
 
-
+class StockUpdateForm(forms.ModelForm):
+    # category = forms.CharField(widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    class Meta:
+        model = Stock
+        fields = ['category', 'item_name', 'quantity']
 
 
 

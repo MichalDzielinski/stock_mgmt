@@ -31,7 +31,9 @@
             <tr>
                 <td>{{forloop.counter}}</td>
                 <td>{{i.category}}</td>
-                <td>{{i.item_name}}</td>
+                <td>
+                    <a href="{% url 'update_item' i.id  %}">{{i.item_name}}</a>
+                    </td>
                 <td>{{i.quantity}}</td>
             </tr>
             {% empty %}
