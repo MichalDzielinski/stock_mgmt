@@ -1,7 +1,7 @@
 import csv
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
-from .forms import StockCreateForm, StockSearchForm, StockUpdateForm, IssueForm, ReceiveForm
+from .forms import StockCreateForm, StockSearchForm, StockUpdateForm, IssueForm, ReceiveForm, ReorderLevelForm
 from .models import Stock
 from django.contrib import messages
 
@@ -112,8 +112,20 @@ def receive_items(request, pk):
     }
     return render(request, 'add_items.html', context)
 
+def reorder_level(request, pk):
+    qs = Stock.objects.get(id=pk)
+    form =  ReorderLevelForm(request.POST or None, instance = qs)
+    if form.is_valid():
+         instance = form.save(commit=False)
+         instance.save()
+         messages.success(request, 'Reorder level for '+str(instance.item_name)+" is update to "+str(instance.reorder_level))
 
-
+         return redirect('list')
+    context = {
+         'instance': qs,
+         'form': form
+    }
+    return render(request, 'add_items.html', context)
 
 
 

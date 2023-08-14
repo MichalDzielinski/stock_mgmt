@@ -25,6 +25,7 @@
                     <th>CATEGORY</th>
                     <th>ITEM NAME</th>
                     <th>QUANTITY IN STORE</th>
+                    <th>REORDER LEVEL</th>
                     <th>TIMESTAMP</th>
                     <th>LAST UPDATED</th>
                     <th>DELETE</th>
@@ -32,13 +33,26 @@
             </thead>
             {% for i in qs %}
             <tr>
+                
+                
+
                 <td>{{forloop.counter}}</td>
                 <td>{{i.category}}</td>
                 <td>
                     <a href="{% url 'update_item' i.id  %}">{{i.item_name}}</a>
                     </td>
-                <td>
-                    <a href="{% url 'stock_detail' i.id  %}">{{i.quantity}}</a>
+                    <td>
+                        {% if i.quantity <= i.reorder_level %}
+                            <div style="background-color: orange">
+                                <a href="{% url 'stock_detail' i.id  %}">
+                                {{i.quantity}}</a></div>
+                        
+                        {% else %}
+                        <a href="{% url 'stock_detail' i.id  %}">{{i.quantity}}</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'reorder_level' i.id %}">{{i.reorder_level}}</a>
                     </td>
                 <td>{{i.timestamp}}</td>
                 <td>{{i.last_updated}}</td>
