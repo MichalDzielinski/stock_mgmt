@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
 
 {% load static %}
 
@@ -9,6 +11,12 @@
 
 <div class="jumbotron mt-5">
     <div class="header">{{header}}</div>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{form|crispy}}
+        <input type="submit" value="Search">
+    </form>
     <div class="display_table">
         <table class="table">
             <thead>
