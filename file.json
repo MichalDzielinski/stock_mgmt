@@ -1,0 +1,110 @@
+[
+{
+  "model": "stock.category",
+  "pk": 1,
+  "fields": {
+    "name": "Furniture"
+  }
+},
+{
+  "model": "stock.category",
+  "pk": 2,
+  "fields": {
+    "name": "Electronics"
+  }
+},
+{
+  "model": "stock.category",
+  "pk": 3,
+  "fields": {
+    "name": "IT Equipment"
+  }
+},
+{
+  "model": "stock.category",
+  "pk": 4,
+  "fields": {
+    "name": "Phone"
+  }
+},
+{
+  "model": "stock.stock",
+  "pk": 1,
+  "fields": {
+    "category": 1,
+    "item_name": "Desk",
+    "quantity": 15,
+    "receive_quantity": 11,
+    "receive_by": null,
+    "issue_quantity": 23,
+    "issue_by": "test_user_1",
+    "issue_to": "Klowny Jaw",
+    "phone_number": null,
+    "created_by": null,
+    "reorder_level": 0,
+    "last_updated": "2023-08-14T14:51:43.152Z",
+    "timestamp": "2023-08-14T13:22:34.877Z",
+    "date": "2023-08-14T13:26:26.079Z"
+  }
+},
+{
+  "model": "stock.stock",
+  "pk": 2,
+  "fields": {
+    "category": 3,
+    "item_name": "Laptop",
+    "quantity": 54,
+    "receive_quantity": 0,
+    "receive_by": null,
+    "issue_quantity": 23,
+    "issue_by": "md",
+    "issue_to": "md",
+    "phone_number": null,
+    "created_by": null,
+    "reorder_level": 0,
+    "last_updated": "2023-08-14T14:40:53.628Z",
+    "timestamp": "2023-08-14T13:22:34.877Z",
+    "date": "2023-08-14T13:26:26.079Z"
+  }
+},
+{
+  "model": "stock.stock",
+  "pk": 3,
+  "fields": {
+    "category": 4,
+    "item_name": "Samsung S21",
+    "quantity": 222,
+    "receive_quantity": 0,
+    "receive_by": null,
+    "issue_quantity": 0,
+    "issue_by": null,
+    "issue_to": null,
+    "phone_number": null,
+    "created_by": null,
+    "reorder_level": 0,
+    "last_updated": "2023-08-14T13:23:50.217Z",
+    "timestamp": "2023-08-14T13:22:34.877Z",
+    "date": "2023-08-14T13:26:26.079Z"
+  }
+},
+{
+  "model": "stock.stock",
+  "pk": 4,
+  "fields": {
+    "category": 2,
+    "item_name": "Ohter",
+    "quantity": 122,
+    "receive_quantity": 0,
+    "receive_by": null,
+    "issue_quantity": 0,
+    "issue_by": null,
+    "issue_to": null,
+    "phone_number": null,
+    "created_by": null,
+    "reorder_level": 0,
+    "last_updated": "2023-08-14T13:24:28.045Z",
+    "timestamp": "2023-08-14T13:22:34.877Z",
+    "date": "2023-08-14T13:26:26.079Z"
+  }
+}
+]
