@@ -9,9 +9,9 @@ def home(request):
     return render(request, 'home.html', context)
 
 def list_items(request):
-    title = 'List'
+    header = 'List'
     qs = Stock.objects.all()
-    context = {'title': title, 'qs': qs}
+    context = {'header': header, 'qs': qs}
     return render(request, 'list.html', context)
 
 def add_items(request):
