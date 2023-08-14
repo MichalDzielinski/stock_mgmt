@@ -23,20 +23,26 @@
             <li class="nav-item active">
               <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
             </li>
+            {% if user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'list' %}">List items</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'add_items' %}">Add items</a>
               </li>
-          
+            {% endif %}
           </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
+          <ul class="navbar-nav">
+            {% if request.user.is_authenticated %}
+            <li><a href="/accounts/logout"><button class="btn btn-danger">{{user}}&nbsp;&nbsp;|&nbsp;&nbsp;LOGOUT</button></a></li>
+            {% else %}
+            <li><a href="/accounts/login">LOGIN</a></li>
+            {% endif %}
+          </ul>
         </div>
       </nav>
+
+      
       <div class="container2">
         {% if messages %}
           <ul class="messages">

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from stock import views
 
 urlpatterns = [
@@ -17,4 +17,6 @@ urlpatterns = [
     path('reorder_level/<str:pk>/', views.reorder_level, name='reorder_level'),
 
     path('admin/', admin.site.urls),
+    path('accounts/', include('registration.backends.default.urls')),
+
 ]

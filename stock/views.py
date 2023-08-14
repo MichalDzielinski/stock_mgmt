@@ -4,6 +4,7 @@ from django.shortcuts import render,redirect
 from .forms import StockCreateForm, StockSearchForm, StockUpdateForm, IssueForm, ReceiveForm, ReorderLevelForm
 from .models import Stock
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     title = 'Hello to my page'
@@ -11,6 +12,7 @@ def home(request):
     context = {'title': title, 'form': form}
     return render(request, 'home.html', context)
 
+@login_required
 def list_items(request):
     header = 'List'
     form = StockSearchForm(request.POST or None)
@@ -33,6 +35,7 @@ def list_items(request):
     context = {'header': header, 'qs': qs, 'form': form}
     return render(request, 'list.html', context)
 
+@login_required
 def add_items(request):
     form = StockCreateForm(request.POST or None)
     if form.is_valid():

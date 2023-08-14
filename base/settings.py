@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'storages',
     'crispy_forms',
     "crispy_bootstrap4",
+    'registration',
     #custom apps
     'stock',
 
@@ -99,3 +100,13 @@ STATICFILES_DIRS = [BASE_DIR/'static/']
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #endregion STATIC FILE, MEDIA & AWS SETTINGS
 
+#region REGISTRATION AND LOGIN SETTINGS
+
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+SITE_ID=1
+LOGIN_REDIRECT_URL='/'
+
+
+
+#endregion REGISTRATION AND LOGIN SETTINGS
