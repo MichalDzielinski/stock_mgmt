@@ -42,7 +42,12 @@ def update_item(request, pk):
     context = {'form': form}
     return render(request, 'add_items.html', context)
 
-
+def delete_item(request, pk):
+     qs = Stock.objects.get(id=pk)
+     if request.method == 'POST':
+          qs.delete()
+          return redirect('list')
+     return render(request, 'delete_item.html')
 
 
 

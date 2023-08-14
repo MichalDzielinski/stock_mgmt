@@ -25,6 +25,7 @@
                     <th>CATEGORY</th>
                     <th>ITEM NAME</th>
                     <th>QUANTITY IN STORE</th>
+                    <th>DELETE</th>
                 </tr>
             </thead>
             {% for i in qs %}
@@ -35,6 +36,9 @@
                     <a href="{% url 'update_item' i.id  %}">{{i.item_name}}</a>
                     </td>
                 <td>{{i.quantity}}</td>
+                <td>
+                    <a href="{% url 'delete_item' i.id %}">Delete</a>
+                </td>
             </tr>
             {% empty %}
                 There is no record in DB.

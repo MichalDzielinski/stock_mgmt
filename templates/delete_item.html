@@ -1,0 +1,9 @@
+<form method="POST">
+    {% csrf_token %}
+    <h1>Are you sure you want to delete?</h1><br>
+    <input type="submit" value="Yes" class="btn btn-danger">
+
+    <a href='/list'>
+        <div class="btn btn-primary">Cancel</div>
+    </a>
+</form>
