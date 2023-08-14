@@ -21,7 +21,6 @@ def list_items(request):
             qs = Stock.objects.filter( 
                 #  category__icontains = form['category'].value(), 
                                          item_name__icontains=form['item_name'].value())
-            
             if form['export_to_CSV'].value() ==True:
                 response = HttpResponse(content_type='text/csv')
                 response['Content-Disposition'] = 'attachment; filename=List_of_stock.csv'
@@ -31,15 +30,7 @@ def list_items(request):
                 for s in instance:
                       writer.writerow([s.category, s.item_name, s.quantity])
                 return response        
-
-
-
-
-
     context = {'header': header, 'qs': qs, 'form': form}
-
-
-    
     return render(request, 'list.html', context)
 
 def add_items(request):
@@ -75,6 +66,13 @@ def delete_item(request, pk):
           return redirect('list')
      return render(request, 'delete_item.html')
 
+def stock_detail(request, pk):
+     qs = Stock.objects.get(id=pk)
+     context = {
+          'title': qs.item_name,
+          'qs': qs
+     }
+     return render(request, 'stock_detail.html', context)
 
 
 

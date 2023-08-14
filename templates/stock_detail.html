@@ -12,45 +12,26 @@
 <div class="jumbotron mt-5">
     <div class="header">{{header}}</div>
 
-    <form method="POST">
-        {% csrf_token %}
-        {{form|crispy}}
-        <input type="submit" value="Search">
-    </form>
+    
 
     <a href="#issue"><div class="btn btn-danger">ISSUE THIS ITEM</div></a>
     <a href="#receive"><div class="btn btn-primary">RECEIVE THIS ITEM</div></a>
     <div class="display_table">
         <table class="table">
-            <thead>
+            
                 <tr>
-                    <th>COUNT</th>
-                    <th>CATEGORY</th>
                     <th>ITEM NAME</th>
                     <th>QUANTITY IN STORE</th>
-                    <th>TIMESTAMP</th>
                     <th>LAST UPDATED</th>
-                    <th>DELETE</th>
+                    <th>REORDER LEVEL</th>
                 </tr>
-            </thead>
-            {% for i in qs %}
+           
             <tr>
-                <td>{{forloop.counter}}</td>
-                <td>{{i.category}}</td>
-                <td>
-                    <a href="{% url 'update_item' i.id  %}">{{i.item_name}}</a>
-                    </td>
-                <td>{{i.quantity}}</td>
-                <td>{{i.timestamp}}</td>
-                <td>{{i.last_updated}}</td>
-                
-                <td>
-                    <a href="{% url 'delete_item' i.id %}">Delete</a>
-                </td>
+                <td>{{qs.item_name}}</td>
+                <td>{{qs.quantity}}</td>
+                <td>{{qs.last_updated}}</td>
+                <td>{{qs.reorder_level}}</td>
             </tr>
-            {% empty %}
-                There is no record in DB.
-                {% endfor %}
         </table>
     </div>
 </div>
