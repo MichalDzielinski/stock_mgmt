@@ -151,6 +151,31 @@ def list_history(request):
         if (category != ''):
             qs = qs.filter(category_id=category)
 
+        if form['export_to_CSV'].value() == True:
+            response = HttpResponse(content_type='text/csv')
+            response['Content-Disposition'] = 'attachment; filename="Stock History.csv"'
+            writer = csv.writer(response)
+            writer.writerow(
+				['CATEGORY', 
+				'ITEM NAME',
+				'QUANTITY', 
+				'ISSUE QUANTITY', 
+				'RECEIVE QUANTITY', 
+				'RECEIVE BY', 
+				'ISSUE BY', 
+				'LAST UPDATED'])
+            instance = qs
+            for stock in instance:
+                writer.writerow(
+                [stock.category, 
+                stock.item_name, 
+                stock.quantity, 
+				stock.issue_quantity, 
+				stock.receive_quantity, 
+				stock.receive_by, 
+				stock.issue_by, 
+				stock.last_updated])
+            return response
     context = {
 		"form": form,
 		"header": header,
