@@ -12,12 +12,17 @@
 
 <div class="jumbotron mt-3">
         <h1 class="display-4">{{title}}</h1>
-        <form action="" method="POST" autocomplete="off">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <input type="submit" value="Save">
-        </form>
-        
+                <div class="row">
+                        <div class="col-sm-5">
+                                <div class="display_table">
+                                        <form action="" method="POST" autocomplete="off">
+                                                {% csrf_token %}
+                                                {{ form|crispy }}
+                                                <input type="submit" class="btn btn-primary mybutton" value="Save">
+                                        </form>
+                                </div>
+                        </div>
+                </div>
     </div>
     
 

@@ -10,7 +10,7 @@ def home(request):
     title = 'Hello to my page'
     form = StockCreateForm()
     context = {'title': title, 'form': form}
-    return render(request, 'home.html', context)
+    return redirect('list')
 
 @login_required
 def list_items(request):
