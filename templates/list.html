@@ -11,62 +11,72 @@
 
 <div class="jumbotron mt-5">
     <div class="header">{{header}}</div>
+    <div class="row"><!--Start of row-->
 
-    <form method="POST">
-        {% csrf_token %}
-        {{form|crispy}}
-        <input type="submit" value="Search">
-    </form>
-    <div class="display_table">
-        <table class="table">
-            <thead>
+        <div class="col-sm-2"><!--Start of first col-->
+            <form method='POST' action=''>{% csrf_token %}
+              {{form|crispy}}
+              <input class="btn btn-primary mybutton" type="submit" value='Search'/>
+            </form><br><br>
+            <br>
+            <a href="/add_items"><div class="btn btn-primary mybutton">Add Items</div></a><br><br>
+            <a href="/list_history"><div class="btn btn-primary mybutton">List History</div></a><br>
+            <br>
+        </div><!--End of first col-->
+      
+        <div class="col-sm-10"><!--Start of second col-->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>COUNT</th>
+                        <th>CATEGORY</th>
+                        <th>ITEM NAME</th>
+                        <th>QUANTITY IN STORE</th>
+                        <th>REORDER LEVEL</th>
+                        <th>TIMESTAMP</th>
+                        <th>LAST UPDATED</th>
+                        <th>DELETE</th>
+                    </tr>
+                </thead>
+                {% for i in qs %}
                 <tr>
-                    <th>COUNT</th>
-                    <th>CATEGORY</th>
-                    <th>ITEM NAME</th>
-                    <th>QUANTITY IN STORE</th>
-                    <th>REORDER LEVEL</th>
-                    <th>TIMESTAMP</th>
-                    <th>LAST UPDATED</th>
-                    <th>DELETE</th>
+                    
+                    
+    
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.category}}</td>
+                    <td>
+                        <a href="{% url 'update_item' i.id  %}">{{i.item_name}}</a>
+                        </td>
+                        <td>
+                            {% if i.quantity <= i.reorder_level %}
+                                <div style="background-color: orange">
+                                    <a href="{% url 'stock_detail' i.id  %}">
+                                    {{i.quantity}}</a></div>
+                            
+                            {% else %}
+                            <a href="{% url 'stock_detail' i.id  %}">{{i.quantity}}</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'reorder_level' i.id %}">{{i.reorder_level}}</a>
+                        </td>
+                    <td>{{i.timestamp}}</td>
+                    <td>{{i.last_updated}}</td>
+                    
+                    <td>
+                        <a href="{% url 'delete_item' i.id %}">Delete</a>
+                    </td>
                 </tr>
-            </thead>
-            {% for i in qs %}
-            <tr>
-                
-                
+                {% empty %}
+                    There is no record in DB.
+                    {% endfor %}
+            </table>
+        </div><!--End of second col-->
+      
+      </div><!--End of row-->
 
-                <td>{{forloop.counter}}</td>
-                <td>{{i.category}}</td>
-                <td>
-                    <a href="{% url 'update_item' i.id  %}">{{i.item_name}}</a>
-                    </td>
-                    <td>
-                        {% if i.quantity <= i.reorder_level %}
-                            <div style="background-color: orange">
-                                <a href="{% url 'stock_detail' i.id  %}">
-                                {{i.quantity}}</a></div>
-                        
-                        {% else %}
-                        <a href="{% url 'stock_detail' i.id  %}">{{i.quantity}}</a>
-                        {% endif %}
-                    </td>
-                    <td>
-                        <a href="{% url 'reorder_level' i.id %}">{{i.reorder_level}}</a>
-                    </td>
-                <td>{{i.timestamp}}</td>
-                <td>{{i.last_updated}}</td>
-                
-                <td>
-                    <a href="{% url 'delete_item' i.id %}">Delete</a>
-                </td>
-            </tr>
-            {% empty %}
-                There is no record in DB.
-                {% endfor %}
-        </table>
-    </div>
-</div>
+    
 
 
     

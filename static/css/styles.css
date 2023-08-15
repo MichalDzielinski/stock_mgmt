@@ -52,3 +52,11 @@ th{
     text-align: center;
 }
 /* #endregion MESSAGES */
+
+/* #region BUTTON */
+
+.mybutton{
+    width: 100%;
+}
+
+/* #endregion BUTTON */
