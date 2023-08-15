@@ -136,12 +136,28 @@ def reorder_level(request, pk):
 
 @login_required
 def list_history(request):
-    header = 'LIST OF ITEMS'
+    
+    header = 'L IST OF ITEMS'
     qs = StockHistory.objects.all()
+    
+    form = StockSearchForm(request.POST or None)
+    context = {'qs':qs, 'header':header, 'form': form}
+    if request.method == 'POST':
+        category = form['category'].value()
+        qs = StockHistory.objects.filter(
+								item_name__icontains=form['item_name'].value()
+								)
+
+        if (category != ''):
+            qs = qs.filter(category_id=category)
+
     context = {
-         'header': header,
-         'qs': qs
-    }
+		"form": form,
+		"header": header,
+		"qs": qs,
+	}
+   
+    
     return render(request, 'list_history.html', context)
 
 
