@@ -2,7 +2,7 @@ import csv
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from .forms import StockCreateForm, StockSearchForm, StockUpdateForm, IssueForm, ReceiveForm, ReorderLevelForm
-from .models import Stock
+from .models import Stock, StockHistory
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -81,13 +81,14 @@ def issue_items(request, pk):
     qs = Stock.objects.get(id=pk)
     form = IssueForm(request.POST or None, instance=qs)
     if form.is_valid():
-         instance = form.save(commit=False)
-         instance.quantity -= instance.issue_quantity
-         instance.issue_by = str(request.user)
-         messages.success(request, 'Issued SUCCESSFULLY. ' + str(instance.quantity)+' '+str(instance.item_name)+'s now left in store')
-         instance.save()
+        instance = form.save(commit=False)
+        instance.receive_quantity = 0
+        instance.quantity -= instance.issue_quantity
+        
+        messages.success(request, 'Issued SUCCESSFULLY. ' + str(instance.quantity)+' '+str(instance.item_name)+'s now left in store')
+        instance.save()
 
-         return redirect('/stock_detail/'+str(instance.id))
+        return redirect('/stock_detail/'+str(instance.id))
     context = {
          "title": 'Issue '+str(qs.item_name),
          'qs': qs,
@@ -101,6 +102,7 @@ def receive_items(request, pk):
     form = ReceiveForm(request.POST or None, instance=qs)
     if form.is_valid():
         instance = form.save(commit=False)
+        instance.issue_quantity = 0
         instance.quantity += instance.receive_quantity
         instance.save()
         messages.success(request, "Received SUCCESSFULLY. "+str(instance.quantity)+' '+str(instance.item_name)+'s now in Store')
@@ -130,6 +132,15 @@ def reorder_level(request, pk):
     }
     return render(request, 'add_items.html', context)
 
+@login_required
+def list_history(request):
+    header = 'LIST OF ITEMS'
+    qs = StockHistory.objects.all()
+    context = {
+         'header': header,
+         'qs': qs
+    }
+    return render(request, 'list_history.html', context)
 
 
 
