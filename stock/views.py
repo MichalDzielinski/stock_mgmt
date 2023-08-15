@@ -1,7 +1,7 @@
 import csv
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
-from .forms import StockCreateForm, StockSearchForm, StockUpdateForm, IssueForm, ReceiveForm, ReorderLevelForm
+from .forms import StockCreateForm, StockSearchForm, StockUpdateForm, IssueForm, ReceiveForm, StockHistorySearchForm ,ReorderLevelForm
 from .models import Stock, StockHistory
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -136,17 +136,19 @@ def reorder_level(request, pk):
 
 @login_required
 def list_history(request):
-    
-    header = 'L IST OF ITEMS'
+    header = 'LIST OF ITEMS'
     qs = StockHistory.objects.all()
     
-    form = StockSearchForm(request.POST or None)
+    form = StockHistorySearchForm(request.POST or None)
     context = {'qs':qs, 'header':header, 'form': form}
     if request.method == 'POST':
         category = form['category'].value()
+        
         qs = StockHistory.objects.filter(
-								item_name__icontains=form['item_name'].value()
-								)
+	                                item_name__icontains=form['item_name'].value(),
+	                                last_updated__range=[
+							                form['start_date'].value(),
+							                form['end_date'].value()])
 
         if (category != ''):
             qs = qs.filter(category_id=category)

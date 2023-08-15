@@ -8,48 +8,65 @@
 
 
 {% block content %}
-<form method='POST' action=''>{% csrf_token %}
-  {{form|crispy}}
-  <input type="submit" value='Search'/>
-</form>
 
-<div class="display_table">
-    <table class='table'>
-      <thead>
-        <tr>
-          <th>COUNT</th>
-          <th>ID</th>
-          <th>CATEGORY</th>
-          <th>ITEM NAME</th>
-          <th>QUANTITY IN STORE</th>
-          <th>ISSUE QUANTITY</th>
-          <th>RECEIVE QUANTITY</th>
-          <th>RECEIVE BY</th>
-          <th>ISSUE BY</th>
-          <th>LAST UPDATED</th>
-        </tr>
-      </thead>
-    {% for instance in qs %}
-        <tr>
+<div class="row">
+  <div class="col-sm-2">
+    <form method='POST' action=''>{% csrf_token %}
+      {{form|crispy}}
+      <input type="submit" value='Search'/>
+    </form>
+  </div>
+  <div class="col-sm-10">
+      <div class="display_table">
+          <table class='table'>
+            <thead>
+              <tr>
+                <th>COUNT</th>
+                <th>ID</th>
+                <th>CATEGORY</th>
+                <th>ITEM NAME</th>
+                <th>QUANTITY IN STORE</th>
+                <th>ISSUE QUANTITY</th>
+                <th>RECEIVE QUANTITY</th>
+                <th>RECEIVE BY</th>
+                <th>ISSUE BY</th>
+                <th>LAST UPDATED</th>
+              </tr>
+            </thead>
+          {% for instance in qs %}
+              <tr>
 
-          <td>{{forloop.counter}}</td>
-          <td>{{instance.id}}</td>
-          <td>{{instance.category}}</td>
-          <td>{{instance.item_name}}</td>
-          <td>{{instance.quantity}}</td>
-          <td>{{instance.issue_quantity}}</td>
-          <td>{{instance.receive_quantity}}</td>
-          <td>{{instance.receive_by}}</td>
-          <td>{{instance.issue_by}}</td>
+                <td>{{forloop.counter}}</td>
+                <td>{{instance.id}}</td>
+                <td>{{instance.category}}</td>
+                <td>{{instance.item_name}}</td>
+                <td>{{instance.quantity}}</td>
+                <td>{{instance.issue_quantity}}</td>
+                <td>{{instance.receive_quantity}}</td>
+                <td>{{instance.receive_by}}</td>
+                <td>{{instance.issue_by}}</td>
 
-          <td>{{instance.last_updated}}</td>
-        </tr>
-    {% endfor %}
-  </table>
+                <td>{{instance.last_updated}}</td>
+              </tr>
+          {% endfor %}
+        </table>
+      </div>
+  </div>
+
 </div>
-</div>
 
+<!-- #region SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  $(document).ready(function(){
+    $(".datetimeinput").datepicker({changeYear: true, changeMonth: true});
+  });
+</script>
+<!-- #endregion SCRIPTS -->
 
     
 
 {% endblock content %}
+
+
